@@ -11,8 +11,8 @@ public class Scene01Script : MonoBehaviour
     public int SelectedSlot = 0;
     [SerializeField] Canvas _InventoryCanvas;
 
-    string[] _InventoryName = { "empty", "empty", "empty", "empty" };
-    int[] _InventoryAmount = { 0, 0, 0, 0 };
+    public string[] _InventoryName = { "empty", "empty", "empty", "empty" };
+    public int[] _InventoryAmount = { 0, 0, 0, 0 };
 
     private void Start()
     {
@@ -72,7 +72,7 @@ public class Scene01Script : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            ItemIntake("Slime");
+            ItemIntake("slime");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
             Debug.Log(_InventoryAmount[0] + "," + _InventoryAmount[1] + "," + _InventoryAmount[2] + "," + _InventoryAmount[3]);
             listCheck();
@@ -80,14 +80,14 @@ public class Scene01Script : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            ItemIntake("Gem");
+            ItemIntake("gem");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
             Debug.Log(_InventoryAmount[0] + "," + _InventoryAmount[1] + "," + _InventoryAmount[2] + "," + _InventoryAmount[3]);
             listCheck();
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            ItemIntake("chiken");
+            ItemIntake("chicken");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
             Debug.Log(_InventoryAmount[0] + "," + _InventoryAmount[1] + "," + _InventoryAmount[2] + "," + _InventoryAmount[3]);
             listCheck();
@@ -103,7 +103,7 @@ public class Scene01Script : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            ItemIntake("Berry");
+            ItemIntake("berry");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
             Debug.Log(_InventoryAmount[0] + "," + _InventoryAmount[1] + "," + _InventoryAmount[2] + "," + _InventoryAmount[3]);
             listCheck();
