@@ -35,6 +35,12 @@ public class HudController : MonoBehaviour
     [SerializeField] RawImage _chickenSlot04;
 
 
+    [SerializeField] Text _itemNameSlot01;
+    [SerializeField] Text _itemNameSlot02;
+    [SerializeField] Text _itemNameSlot03;
+    [SerializeField] Text _itemNameSlot04;
+
+
     [SerializeField] Text _AmoutSlot01;
     [SerializeField] Text _AmoutSlot02;
     [SerializeField] Text _AmoutSlot03;
@@ -62,7 +68,9 @@ public class HudController : MonoBehaviour
         DisplayInventorySlot02(_level01Ctrlr._InventoryName[1]);
         DisplayInventorySlot03(_level01Ctrlr._InventoryName[2]);
         DisplayInventorySlot04(_level01Ctrlr._InventoryName[3]);
-        DisplayAmounts(_level01Ctrlr._InventoryAmount[0], _level01Ctrlr._InventoryAmount[1], _level01Ctrlr._InventoryAmount[2], _level01Ctrlr._InventoryAmount[3]);
+        DisplayAmounts(_level01Ctrlr._InventoryAmount[0], _level01Ctrlr._InventoryAmount[1], _level01Ctrlr._InventoryAmount[2], _level01Ctrlr._InventoryAmount[3],//this row holds that items amount
+            _level01Ctrlr._InventoryName[0], _level01Ctrlr._InventoryName[1], _level01Ctrlr._InventoryName[2], _level01Ctrlr._InventoryName[3]//this row holds the name of the item
+            );
     }
 
     // Update is called once per frame
@@ -72,7 +80,9 @@ public class HudController : MonoBehaviour
         DisplayInventorySlot02(_level01Ctrlr._InventoryName[1]);
         DisplayInventorySlot03(_level01Ctrlr._InventoryName[2]);
         DisplayInventorySlot04(_level01Ctrlr._InventoryName[3]);
-        DisplayAmounts(_level01Ctrlr._InventoryAmount[0], _level01Ctrlr._InventoryAmount[1], _level01Ctrlr._InventoryAmount[2], _level01Ctrlr._InventoryAmount[3]);
+        DisplayAmounts(_level01Ctrlr._InventoryAmount[0], _level01Ctrlr._InventoryAmount[1], _level01Ctrlr._InventoryAmount[2], _level01Ctrlr._InventoryAmount[3],//this row holds that items amount
+            _level01Ctrlr._InventoryName[0], _level01Ctrlr._InventoryName[1], _level01Ctrlr._InventoryName[2], _level01Ctrlr._InventoryName[3]//this row holds the name of the item
+            );
     }
 
     //these are public becuase other programs will be calling the update code
@@ -427,12 +437,17 @@ public class HudController : MonoBehaviour
 
     }
 
-    public void DisplayAmounts(int item01, int item02, int item03, int item04)
+    public void DisplayAmounts(int item01, int item02, int item03, int item04,string item01Name, string item02Name, string item03Name, string item04Name)
     {
         
-        _AmoutSlot01.text = item01.ToString();
-        _AmoutSlot02.text = item02.ToString();
-        _AmoutSlot03.text = item03.ToString();
-        _AmoutSlot04.text = item04.ToString();
+        _AmoutSlot01.text = "x" + item01.ToString();
+        _AmoutSlot02.text = "x" + item02.ToString();
+        _AmoutSlot03.text = "x" + item03.ToString();
+        _AmoutSlot04.text = "x" + item04.ToString();
+
+        _itemNameSlot01.text = item01Name;
+        _itemNameSlot02.text = item02Name;
+        _itemNameSlot03.text = item03Name;
+        _itemNameSlot04.text = item04Name;
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Scene01Script : MonoBehaviour
 {
 
+    [SerializeField] int _maxSlotAmount = 50;
 
     public int SelectedSlot = 0;
     [SerializeField] Canvas _InventoryCanvas;
@@ -29,14 +30,15 @@ public class Scene01Script : MonoBehaviour
         foreach (string i in _InventoryName )// lets look and see if we have any slots that match!
         {
             
-            if (_InventoryName[p] == ObjectToTake)
+            if (_InventoryName[p] == ObjectToTake)//this code checks to make sure if the object we want 
             {
-                
-                _InventoryAmount[p] += 1;//using p as our test to see what object we are checking in the loop we can now update the corsponding amount
-                //tell the gun to destroy the sucked gameObject.
-                
+                if (_InventoryAmount[p] < _maxSlotAmount)// now we check to make sure we have enough storage avalbialbe for a matching item
+                {
+                    _InventoryAmount[p] += 1;//using p as our test to see what object we are checking in the loop we can now update the corsponding amount
+                    //tell the gun to destroy the sucked gameObject.
+                }
             }
-            p += 1;
+                p += 1;
             if (p == 3 && _InventoryName[0] != ObjectToTake && _InventoryName[1] != ObjectToTake && _InventoryName[2] != ObjectToTake && _InventoryName[3] != ObjectToTake)//ALERT this code isnt tracking if the first lines found anything only if it found something in the last slot
             {
                 
