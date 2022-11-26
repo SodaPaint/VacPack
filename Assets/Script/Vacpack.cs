@@ -11,6 +11,7 @@ public class Vacpack : MonoBehaviour
     [SerializeField] GameObject _chicken;
     [SerializeField] GameObject _berry;
     [SerializeField] GameObject _gem;
+    [SerializeField] GameObject _Funnel;
 
     //gun settings 
     [SerializeField] int upwardForce, shootForce;
@@ -20,17 +21,18 @@ public class Vacpack : MonoBehaviour
 
     //reffrances
     Scene01Script _level01Ctrlr;
-
+    private Vector3 scaleChange, scaleZero;
     // Start is called before the first frame update
     private void Awake()
     {
+        
         _level01Ctrlr = FindObjectOfType<Scene01Script>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))//swaps the players selection by pressing 4
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             
             //first we need to know what slot we are pulling our ammo out of 
@@ -42,6 +44,25 @@ public class Vacpack : MonoBehaviour
             _level01Ctrlr.shootItem(_level01Ctrlr.SelectedSlot);
             //selection is now the fourth invenotry slot
 
+        }
+
+        scaleChange = new Vector3(3, -3, 5);//this is the normal scale of the objectchain
+        scaleZero = new Vector3(0, 0, 0);//this is the zero scale of the objectchain 
+        if (Input.GetKey(KeyCode.Mouse1))//this code will activate the suck feature of the gun.
+        {
+
+
+            _Funnel.transform.localScale = scaleChange;//the collider gets big so it can collide with items
+            _Funnel.SetActive(true);
+            
+            
+            //selection is now the fourth invenotry slot
+
+        }
+        else
+        {
+            _Funnel.transform.localScale = scaleZero;//the collider gets small so the items can safely enter triggerExit. and stop their code
+            /*_Funnel.SetActive(false);*/
         }
     }
 

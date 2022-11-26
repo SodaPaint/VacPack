@@ -1,0 +1,80 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class VacpakNozzle : MonoBehaviour
+{
+
+    Scene01Script _level01Ctrlr;
+    // Start is called before the first frame update
+    void Start()
+    {
+
+        _level01Ctrlr = FindObjectOfType<Scene01Script>();
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "slime")
+        {
+            /*_level01Ctrlr.ItemIntake("slime");*/
+            if (_level01Ctrlr.ItemIntake("slime") == true) {
+                _level01Ctrlr.listCheck();
+                Destroy(other.gameObject);
+
+            }
+            _level01Ctrlr.listCheck();
+
+           
+        }
+        else if (other.tag == "beat")
+        {
+
+            
+            if (_level01Ctrlr.ItemIntake("beat") == true)
+            {
+                _level01Ctrlr.listCheck();
+                Destroy(other.gameObject);
+
+            }
+            _level01Ctrlr.listCheck();
+        }
+        else if (other.tag == "berry")
+        {
+
+            
+            if (_level01Ctrlr.ItemIntake("berry") == true)
+            {
+                _level01Ctrlr.listCheck();
+                Destroy(other.gameObject);
+
+            }
+            _level01Ctrlr.listCheck();
+        }
+        else if (other.tag == "chicken")
+        {
+
+           
+            if (_level01Ctrlr.ItemIntake("chicken") == true)
+            {
+                _level01Ctrlr.listCheck();
+                Destroy(other.gameObject);
+
+            }
+            _level01Ctrlr.listCheck();
+        }
+        else if (other.tag == "gem")
+        {
+           
+            if (_level01Ctrlr.ItemIntake("gem") == true)
+            {
+                _level01Ctrlr.listCheck();
+                Destroy(other.gameObject);
+
+            }
+            _level01Ctrlr.listCheck();
+        }
+
+    }
+}

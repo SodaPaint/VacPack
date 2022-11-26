@@ -6,14 +6,19 @@ using UnityEngine.UI;
 
 public class Scene01Script : MonoBehaviour
 {
-
+    //slot Attributes
     [SerializeField] int _maxSlotAmount = 50;
 
-    public int SelectedSlot = 0;
+   
+    //referances 
     [SerializeField] Canvas _InventoryCanvas;
-
+    
+    //public values
     public string[] _InventoryName = { "empty", "empty", "empty", "empty" };
     public int[] _InventoryAmount = { 0, 0, 0, 0 };
+    public int SelectedSlot = 0;
+
+
 
     private void Start()
     {
@@ -23,7 +28,7 @@ public class Scene01Script : MonoBehaviour
 
     }
 
-    void ItemIntake(string ObjectToTake)
+    public bool ItemIntake(string ObjectToTake)
     {
         int p = 0;
         int e = 0;
@@ -35,7 +40,9 @@ public class Scene01Script : MonoBehaviour
                 if (_InventoryAmount[p] < _maxSlotAmount)// now we check to make sure we have enough storage avalbialbe for a matching item
                 {
                     _InventoryAmount[p] += 1;//using p as our test to see what object we are checking in the loop we can now update the corsponding amount
+                    return true;
                     //tell the gun to destroy the sucked gameObject.
+
                 }
             }
                 p += 1;
@@ -49,8 +56,8 @@ public class Scene01Script : MonoBehaviour
 
                         _InventoryName[e] = ObjectToTake; //changes the empty slot to a filled slot with the new name.
                         _InventoryAmount[e] += 1;//using r as our test to see what object we are checking in the loop we can now update the corsponding amount
-                                                 //tell the gun to destroy the sucked gameObject.
-                        break;
+                        return true;//tell the gun to destroy the sucked gameObject.
+                        
                     }
                     e += 1;
 
@@ -58,7 +65,9 @@ public class Scene01Script : MonoBehaviour
 
                 }
             }
+           
         }
+        return false;
     }
 
 
@@ -169,7 +178,7 @@ public class Scene01Script : MonoBehaviour
     }
 
 
-    private void listCheck()
+    public void listCheck()
     {
         int numberKeeper = 0;
         foreach (int c in _InventoryAmount)
