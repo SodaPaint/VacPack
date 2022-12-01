@@ -411,7 +411,7 @@ public class HudController : MonoBehaviour
                 _nothingSlot04.enabled = false;
                 break;
             case "gem":
-                _gemSlot02.enabled = true;//set the first state as true
+                _gemSlot04.enabled = true;//set the first state as true
 
                 //now everything else becomes false
                 _slimeSlot04.enabled = false;

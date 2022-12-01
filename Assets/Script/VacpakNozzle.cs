@@ -90,7 +90,7 @@ public class VacpakNozzle : MonoBehaviour
                 Destroy(other.gameObject);
                 _vacpack.AccpetedSound();
             }
-            if (_level01Ctrlr.ItemIntake("gem") == false)
+            else if (_level01Ctrlr.ItemIntake("gem") == false)
             {
                 _vacpack.Playdenied();
             }

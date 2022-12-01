@@ -163,7 +163,12 @@ public class Scene01Script : MonoBehaviour
             SwapSound4();
             _hudCtlr.EnlargeChoice(3);
         }
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+
+        }
+
 
 
     }
