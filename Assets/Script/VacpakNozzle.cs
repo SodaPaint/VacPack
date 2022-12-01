@@ -6,12 +6,13 @@ public class VacpakNozzle : MonoBehaviour
 {
 
     Scene01Script _level01Ctrlr;
+    Vacpack _vacpack;
     // Start is called before the first frame update
     void Start()
     {
 
         _level01Ctrlr = FindObjectOfType<Scene01Script>();
-
+        _vacpack = FindObjectOfType<Vacpack>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -22,11 +23,15 @@ public class VacpakNozzle : MonoBehaviour
             if (_level01Ctrlr.ItemIntake("slime") == true) {
                 _level01Ctrlr.listCheck();
                 Destroy(other.gameObject);
+                _vacpack.AccpetedSound();
+            }
 
+            else if (_level01Ctrlr.ItemIntake("slime") == false)
+            {
+                _vacpack.Playdenied();
             }
             _level01Ctrlr.listCheck();
 
-           
         }
         else if (other.tag == "beat")
         {
@@ -36,7 +41,11 @@ public class VacpakNozzle : MonoBehaviour
             {
                 _level01Ctrlr.listCheck();
                 Destroy(other.gameObject);
-
+                _vacpack.AccpetedSound();
+            }
+            else if (_level01Ctrlr.ItemIntake("beat") == false)
+            {
+                _vacpack.Playdenied();
             }
             _level01Ctrlr.listCheck();
         }
@@ -48,7 +57,11 @@ public class VacpakNozzle : MonoBehaviour
             {
                 _level01Ctrlr.listCheck();
                 Destroy(other.gameObject);
-
+                _vacpack.AccpetedSound();
+            }
+            else if (_level01Ctrlr.ItemIntake("berry") == false)
+            {
+                _vacpack.Playdenied();
             }
             _level01Ctrlr.listCheck();
         }
@@ -60,7 +73,11 @@ public class VacpakNozzle : MonoBehaviour
             {
                 _level01Ctrlr.listCheck();
                 Destroy(other.gameObject);
-
+                _vacpack.AccpetedSound();
+            }
+            else if (_level01Ctrlr.ItemIntake("chicken") == false)
+            {
+                _vacpack.Playdenied();
             }
             _level01Ctrlr.listCheck();
         }
@@ -71,9 +88,19 @@ public class VacpakNozzle : MonoBehaviour
             {
                 _level01Ctrlr.listCheck();
                 Destroy(other.gameObject);
-
+                _vacpack.AccpetedSound();
+            }
+            if (_level01Ctrlr.ItemIntake("gem") == false)
+            {
+                _vacpack.Playdenied();
             }
             _level01Ctrlr.listCheck();
+        }
+        else
+        {
+           /* Debug.Log("should be playing");*/
+            _vacpack.Playdenied();
+            //we wont accept this item so lets play the denied effects now!
         }
 
     }

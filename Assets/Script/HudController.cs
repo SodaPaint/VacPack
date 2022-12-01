@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HudController : MonoBehaviour
 {
-    
+
     [SerializeField] RawImage _nothingSlot01;
     [SerializeField] RawImage _slimeSlot01;
     [SerializeField] RawImage _gemSlot01;
@@ -46,6 +46,10 @@ public class HudController : MonoBehaviour
     [SerializeField] Text _AmoutSlot03;
     [SerializeField] Text _AmoutSlot04;
 
+    [SerializeField] RectTransform _panelSLot01;
+    [SerializeField] RectTransform _panelSLot02;
+    [SerializeField] RectTransform _panelSLot03;
+    [SerializeField] RectTransform _panelSLot04;
 
     Scene01Script _level01Ctrlr;//reference our level o1 script
     private void Awake()
@@ -95,7 +99,7 @@ public class HudController : MonoBehaviour
         switch (itemType)
         {
             case "empty":
-                
+
                 _nothingSlot01.enabled = true;//set the first state as true
 
                 //now everything else becomes false
@@ -203,7 +207,7 @@ public class HudController : MonoBehaviour
                 _nothingSlot02.enabled = false;
                 break;
             case "berry":
-                _berrySlot01.enabled = true;//set the first state as true
+                _berrySlot02.enabled = true;//set the first state as true
 
                 //now everything else becomes false
                 _slimeSlot02.enabled = false;
@@ -269,7 +273,7 @@ public class HudController : MonoBehaviour
         switch (itemType)
         {
             case "empty":
-                
+
                 _nothingSlot03.enabled = true;//set the first state as true
 
                 //now everything else becomes false
@@ -437,9 +441,9 @@ public class HudController : MonoBehaviour
 
     }
 
-    public void DisplayAmounts(int item01, int item02, int item03, int item04,string item01Name, string item02Name, string item03Name, string item04Name)
+    public void DisplayAmounts(int item01, int item02, int item03, int item04, string item01Name, string item02Name, string item03Name, string item04Name)
     {
-        
+
         _AmoutSlot01.text = "x" + item01.ToString();
         _AmoutSlot02.text = "x" + item02.ToString();
         _AmoutSlot03.text = "x" + item03.ToString();
@@ -450,4 +454,60 @@ public class HudController : MonoBehaviour
         _itemNameSlot03.text = item03Name;
         _itemNameSlot04.text = item04Name;
     }
+
+
+
+    public void EnlargeChoice(int ItemChoice)
+    {
+        Vector3 scaleChange = new Vector3(0.14f, 0.6433099f, 0.3311763f);//this is the normal scale of the objectchain
+        Vector3 scaleZero = new Vector3(0.1129044f, 0.5188037f, 0.2670804f);//this is the zero scale of the objectchain 
+
+        int slot = ItemChoice;
+        switch (slot)
+        {
+            case 0:
+
+                _panelSLot01.localScale = scaleChange; //set the first scale to the 
+
+                //now everything else becomes normal
+                _panelSLot02.localScale = scaleZero;
+                _panelSLot03.localScale = scaleZero;
+                _panelSLot04.localScale = scaleZero;
+                break;
+            case 1:
+
+                _panelSLot02.localScale = scaleChange; //set the first scale to the 
+
+                //now everything else becomes normal
+                _panelSLot01.localScale = scaleZero;
+                _panelSLot03.localScale = scaleZero;
+                _panelSLot04.localScale = scaleZero;
+                break;
+            case 2:
+
+                _panelSLot03.localScale = scaleChange; //set the first scale to the 
+
+                //now everything else becomes normal
+                _panelSLot02.localScale = scaleZero;
+                _panelSLot01.localScale = scaleZero;
+                _panelSLot04.localScale = scaleZero;
+                break;
+            case 3:
+
+                _panelSLot04.localScale = scaleChange; //set the first scale to the 
+
+                //now everything else becomes normal
+                _panelSLot02.localScale = scaleZero;
+                _panelSLot03.localScale = scaleZero;
+                _panelSLot01.localScale = scaleZero;
+                break;
+
+
+
+        }
+
+
+
+    }
 }
+

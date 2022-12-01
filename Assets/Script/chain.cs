@@ -40,4 +40,9 @@ public class chain : MonoBehaviour
         }
         transform.position = targetPosition;
     }
+
+
+   
+
+
 }

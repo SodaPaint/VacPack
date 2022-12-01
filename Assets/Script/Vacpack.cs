@@ -11,16 +11,33 @@ public class Vacpack : MonoBehaviour
     [SerializeField] GameObject _chicken;
     [SerializeField] GameObject _berry;
     [SerializeField] GameObject _gem;
-    [SerializeField] GameObject _Funnel;
+    [SerializeField] GameObject _Funnel; 
+
 
     //gun settings 
     [SerializeField] int upwardForce, shootForce;
     [SerializeField] Camera fpsCam;
     [SerializeField] Transform attackPoint;
     [SerializeField] float spread = 1;
+    [SerializeField] float cooldownTime = 5f;
 
     //reffrances
     Scene01Script _level01Ctrlr;
+    [SerializeField] ParticleSystem _airBurst;
+    [SerializeField] ParticleSystem _Burst;
+    [SerializeField] ParticleSystem _airSuck;
+    [SerializeField] AudioSource _shootAudio;
+    [SerializeField] AudioSource _suckAudio;
+    [SerializeField] AudioSource _emptyAudio;
+    [SerializeField] AudioSource _rejectAudio;
+    [SerializeField] AudioSource _AcceptedAudio;
+    bool soundActive = false;// a bool that tells the code that vacumme sound is active or not
+
+
+    //states
+    public int VacPackState = 0;
+    private bool cool = true;
+
     private Vector3 scaleChange, scaleZero;
     // Start is called before the first frame update
     private void Awake()
@@ -32,38 +49,67 @@ public class Vacpack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            
-            //first we need to know what slot we are pulling our ammo out of 
-            if (_level01Ctrlr._InventoryAmount[_level01Ctrlr.SelectedSlot] > 0)//this line of code will check if our chosen slot has any ammo in it, if it does we will call the fireItem function
-            {
-                
-                fireItem(_level01Ctrlr._InventoryName[_level01Ctrlr.SelectedSlot]);
-            }
-            _level01Ctrlr.shootItem(_level01Ctrlr.SelectedSlot);
-            //selection is now the fourth invenotry slot
-
-        }
-
         scaleChange = new Vector3(3, -3, 5);//this is the normal scale of the objectchain
         scaleZero = new Vector3(0, 0, 0);//this is the zero scale of the objectchain 
-        if (Input.GetKey(KeyCode.Mouse1))//this code will activate the suck feature of the gun.
+
+        if (Input.GetKey(KeyCode.Mouse0))
         {
 
+            if (VacPackState == 0 || VacPackState == 1)
+            {
+                if (cool) { //if our gun is cool we can shoot
+                    VacPackState = 1;
+                    //first we need to know what slot we are pulling our ammo out of 
+                    if (_level01Ctrlr._InventoryAmount[_level01Ctrlr.SelectedSlot] > 0)//this line of code will check if our chosen slot has any ammo in it, if it does we will call the fireItem function
+                    {
 
-            _Funnel.transform.localScale = scaleChange;//the collider gets big so it can collide with items
-            _Funnel.SetActive(true);
-            
-            
-            //selection is now the fourth invenotry slot
+                        fireItem(_level01Ctrlr._InventoryName[_level01Ctrlr.SelectedSlot]);
+                        StartCoroutine(CooldownCoroutine(cooldownTime));//starts the cooldown function using the cooldown time as a paramter
+                        _level01Ctrlr.shootItem(_level01Ctrlr.SelectedSlot);
+                    }
+                    else
+                    {
+                        StartCoroutine(CooldownCoroutine(cooldownTime));//starts the cooldown function using the cooldown time as a paramter
+                        _emptyAudio.Play();
+                    }
+                   
+                    //selection is now the fourth invenotry slot
+                }
+            }
 
+        }
+        else if (Input.GetKey(KeyCode.Mouse1))//this code will activate the suck feature of the gun.
+        {
+            
+            if (VacPackState == 0 || VacPackState == 2)
+            {
+
+                VacPackState = 2;
+                _Funnel.transform.localScale = scaleChange;//the collider gets big so it can collide with items
+                _Funnel.SetActive(true);
+                StartSuckSound();
+
+                //selection is now the fourth invenotry slot
+            }
         }
         else
         {
+            EndSuckSound();
+            VacPackState = 0;
             _Funnel.transform.localScale = scaleZero;//the collider gets small so the items can safely enter triggerExit. and stop their code
             /*_Funnel.SetActive(false);*/
         }
+
+    }
+
+
+    IEnumerator CooldownCoroutine( float cooldown)
+    {
+
+        cool = false;
+        yield return new WaitForSeconds(cooldownTime);
+        cool = true;
+
     }
 
     private void fireItem(string itemType)
@@ -93,7 +139,9 @@ public class Vacpack : MonoBehaviour
 
         //Instantiate bullet/projectile
 
-        if(itemType == "beat")
+        playBurst();// plays the particle system for the air blast
+
+        if (itemType == "beat")
         {
             GameObject currentBullet = Instantiate(_beat, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
 
@@ -159,8 +207,53 @@ public class Vacpack : MonoBehaviour
 
 
 
-
-
-
     }
+
+
+
+
+
+
+    private void playBurst()
+    {
+        _airBurst.Play();
+        _shootAudio.Play();
+    }
+
+    private void StartSuckSound()
+    {
+        
+        if (!soundActive) 
+        {
+            Debug.Log("audipPlaying");
+            _suckAudio.Play();
+            _airSuck.Play();
+            soundActive = true;
+        }
+    }
+
+    public void Playdenied()
+    {
+        _rejectAudio.Play();
+        _Burst.Play();
+    }
+
+
+    private void EndSuckSound()
+    {
+        _airSuck.Stop();
+        _suckAudio.Stop();
+        soundActive = false;
+    }
+
+    private void StartEmptySound()
+    {
+        _emptyAudio.Play();
+    }
+    
+    public void AccpetedSound()
+    {
+        _AcceptedAudio.Play();
+    }
+
 }

@@ -12,7 +12,13 @@ public class Scene01Script : MonoBehaviour
    
     //referances 
     [SerializeField] Canvas _InventoryCanvas;
-    
+    [SerializeField] AudioSource _SwapSound1;
+    [SerializeField] AudioSource _SwapSound2;
+    [SerializeField] AudioSource _SwapSound3;
+    [SerializeField] AudioSource _SwapSound4;
+    HudController _hudCtlr;
+
+
     //public values
     public string[] _InventoryName = { "empty", "empty", "empty", "empty" };
     public int[] _InventoryAmount = { 0, 0, 0, 0 };
@@ -25,7 +31,7 @@ public class Scene01Script : MonoBehaviour
         _InventoryCanvas.gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        _hudCtlr = FindObjectOfType<HudController>();
     }
 
     public bool ItemIntake(string ObjectToTake)
@@ -81,7 +87,7 @@ public class Scene01Script : MonoBehaviour
 
         // increase score
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             ItemIntake("slime");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
@@ -89,14 +95,14 @@ public class Scene01Script : MonoBehaviour
             listCheck();
             //Add a slime to invetory
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             ItemIntake("gem");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
             Debug.Log(_InventoryAmount[0] + "," + _InventoryAmount[1] + "," + _InventoryAmount[2] + "," + _InventoryAmount[3]);
             listCheck();
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             ItemIntake("chicken");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
@@ -104,7 +110,7 @@ public class Scene01Script : MonoBehaviour
             listCheck();
             //Add a slime to invetory
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             ItemIntake("beat");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
@@ -112,7 +118,7 @@ public class Scene01Script : MonoBehaviour
             listCheck();
 
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             ItemIntake("berry");
             Debug.Log(_InventoryName[0] + "," + _InventoryName[1] + "," + _InventoryName[2] + "," + _InventoryName[3]);
@@ -130,24 +136,32 @@ public class Scene01Script : MonoBehaviour
             SelectedSlot = 0;//selection is now the first invenotry slot
             Debug.Log("slot is 1");
             listCheck();
+            SwapSound1();
+            _hudCtlr.EnlargeChoice(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))//swaps the players selection by pressing 2
         {
             SelectedSlot = 1;//selection is now the second invenotry slot
             Debug.Log("slot is 2");
             listCheck();
+            SwapSound2();
+            _hudCtlr.EnlargeChoice(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))//swaps the players selection by pressing 3
         {
             SelectedSlot = 2;//selection is now the third invenotry slot
             Debug.Log("slot is 3");
             listCheck();
+            SwapSound3();
+            _hudCtlr.EnlargeChoice(2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))//swaps the players selection by pressing 4
         {
             Debug.Log("slot is 4");
             SelectedSlot = 3;//selection is now the fourth invenotry slot
             listCheck();
+            SwapSound4();
+            _hudCtlr.EnlargeChoice(3);
         }
         
 
@@ -219,5 +233,21 @@ public class Scene01Script : MonoBehaviour
         /*SceneManager.LoadScene("Level01");*/
     }
 
- 
+    private void SwapSound1()
+    {
+        _SwapSound1.Play();
+    }
+    private void SwapSound2()
+    {
+        _SwapSound2.Play();
+    }
+    private void SwapSound3()
+    {
+        _SwapSound3.Play();
+    }
+    private void SwapSound4()
+    {
+        _SwapSound4.Play();
+    }
+
 }
